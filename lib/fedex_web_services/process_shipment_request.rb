@@ -67,6 +67,14 @@ module FedexWebServices
       contents.requestedShipment.requestedPackageLineItems.customerReferences ||= []
       contents.requestedShipment.requestedPackageLineItems.customerReferences << ref
     end
+    
+    def purchase_order_number!(po_number)
+      mod = self.soap_module
+      ref = mod::CustomerReference.new(mod::CustomerReferenceType::P_O_NUMBER, po_number)
+
+      contents.requestedShipment.requestedPackageLineItems.customerReferences ||= []
+      contents.requestedShipment.requestedPackageLineItems.customerReferences << ref
+    end
 
     def self.shipment_requests(service_type, from, to, label_specification, package_weights)
       package_weights.map.with_index do |weight, ndx|
